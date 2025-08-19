@@ -1,8 +1,29 @@
 import 'package:booklyapp/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 
-class SplashViewBody extends StatelessWidget {
+class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
+
+  @override
+  State<SplashViewBody> createState() => _SplashViewBodyState();
+}
+
+class _SplashViewBodyState extends State<SplashViewBody>
+    with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  late Animation<Offset> slidingAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    slidingAnimation = Tween<Offset>(
+      begin: const Offset(0, 2),
+      end: Offset.zero,
+    ).animate(animationController);
+    animationController.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +34,17 @@ class SplashViewBody extends StatelessWidget {
         Image.asset(
           AssetsData.logo,
         ),
-        const Text(
-          'Your Gate To E-Books..',
-          textAlign: TextAlign.center,
+        AnimatedBuilder(
+          animation: slidingAnimation,
+          builder: (context, child) {
+            return SlideTransition(
+              position: slidingAnimation,
+              child: const Text(
+                'Your Gate To E-Books..',
+                textAlign: TextAlign.center,
+              ),
+            );
+          },
         )
       ],
     );
