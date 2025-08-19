@@ -1,3 +1,4 @@
+import 'package:booklyapp/Features/splash/views/widgets/sliding_text.dart';
 import 'package:booklyapp/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 
@@ -34,18 +35,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
         Image.asset(
           AssetsData.logo,
         ),
-        AnimatedBuilder(
-          animation: slidingAnimation,
-          builder: (context, child) {
-            return SlideTransition(
-              position: slidingAnimation,
-              child: const Text(
-                'Your Gate To E-Books..',
-                textAlign: TextAlign.center,
-              ),
-            );
-          },
-        )
+        SlidingText(slidingAnimation: slidingAnimation)
       ],
     );
   }
